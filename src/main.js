@@ -37,29 +37,78 @@ app.innerHTML = `
 
       <section class="landing-screen" id="landing-screen">
         <div class="landing-card" id="landing-card">
-          <p class="eyebrow">Spark 2.0 Preview</p>
-          <h1>把 3DGS 文件拖进来</h1>
-          <p class="landing-description">默认先进入全屏主页。你可以直接拖拽本地文件，也可以输入远程地址后开始查看。</p>
+          <div class="landing-grid">
+            <section class="landing-hero">
+              <div class="brand-badge">
+                <span class="brand-badge-dot"></span>
+                Spark 2.0 Preview
+              </div>
+              <p class="eyebrow">Raycast-inspired workspace for Gaussian splats</p>
+              <h1>把 3DGS 场景像桌面应用一样打开。</h1>
+              <p class="landing-description">
+                一个更像 Raycast 首页的深色工作台：先把视觉注意力集中到“加载场景”这件事上，随后再把控制面板轻巧地收进左上角。
+              </p>
 
-          <div class="landing-dropzone">
-            <p class="landing-drop-title">拖拽本地文件到这里</p>
-            <p class="landing-drop-subtitle">支持 .ply / .spz / .splat / .ksplat / .zip / .rad / .sog</p>
-            <button type="button" id="landing-pick-file" class="landing-primary-button">选择本地文件</button>
-          </div>
+              <div class="landing-feature-row">
+                <div class="feature-pill">
+                  <span class="feature-pill-label">拖拽即开</span>
+                  <span class="feature-pill-value">本地 splat 文件</span>
+                </div>
+                <div class="feature-pill">
+                  <span class="feature-pill-label">远程加载</span>
+                  <span class="feature-pill-value">URL / 官方示例</span>
+                </div>
+                <div class="feature-pill">
+                  <span class="feature-pill-label">Spark 2.0</span>
+                  <span class="feature-pill-value">LoD / Paged / Ext</span>
+                </div>
+              </div>
 
-          <form id="landing-form" class="landing-form">
-            <input
-              id="landing-url"
-              name="landingUrl"
-              type="url"
-              placeholder="输入远程 splat 地址，例如 https://example.com/scene.spz"
-              autocomplete="off"
-            />
-            <button type="submit" class="landing-secondary-button">加载远程场景</button>
-          </form>
+              <div class="command-strip" aria-hidden="true">
+                <span class="command-key">⌘</span>
+                <span class="command-key">O</span>
+                <span class="command-copy">像打开桌面工具一样开始查看你的 3DGS</span>
+              </div>
+            </section>
 
-          <div class="landing-quick-actions">
-            <button type="button" id="landing-sample" class="landing-tertiary-button">载入官方示例</button>
+            <section class="landing-workbench">
+              <div class="landing-dropzone">
+                <div class="dropzone-header">
+                  <p class="landing-drop-title">拖拽本地文件到这里</p>
+                  <p class="landing-drop-subtitle">支持 .ply / .spz / .splat / .ksplat / .zip / .rad / .sog</p>
+                </div>
+                <button type="button" id="landing-pick-file" class="landing-primary-button">选择本地文件</button>
+              </div>
+
+              <form id="landing-form" class="landing-form">
+                <label class="field landing-field">
+                  <span>远程地址</span>
+                  <input
+                    id="landing-url"
+                    name="landingUrl"
+                    type="url"
+                    placeholder="输入远程 splat 地址，例如 https://example.com/scene.spz"
+                    autocomplete="off"
+                  />
+                </label>
+                <button type="submit" class="landing-secondary-button">加载远程场景</button>
+              </form>
+
+              <div class="landing-quick-actions">
+                <button type="button" id="landing-sample" class="landing-tertiary-button">载入官方示例</button>
+              </div>
+
+              <div class="landing-mini-grid">
+                <div class="mini-card">
+                  <span class="mini-card-label">默认体验</span>
+                  <strong>全屏首页 → 自动进入 Viewer</strong>
+                </div>
+                <div class="mini-card">
+                  <span class="mini-card-label">加载后</span>
+                  <strong>左上角悬浮侧边栏，可折叠</strong>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
       </section>
@@ -80,9 +129,15 @@ app.innerHTML = `
         <div class="panel-glow"></div>
 
         <div class="panel-section panel-header">
-          <p class="eyebrow">Spark 2.0 Preview</p>
+          <div class="panel-badge-row">
+            <div class="brand-badge panel-brand-badge">
+              <span class="brand-badge-dot"></span>
+              Spark 2.0 Preview
+            </div>
+            <div class="status-chip">Viewer Ready</div>
+          </div>
           <h2>3DGS Viewer</h2>
-          <p class="description">场景加载后显示这个侧边栏，你可以随时折叠收起。</p>
+          <p class="description">场景加载后显示这个侧边栏。它更像一个轻量工具抽屉，需要时展开，不需要时收起来。</p>
         </div>
 
         <form id="viewer-form" class="viewer-form">
@@ -125,7 +180,10 @@ app.innerHTML = `
         </form>
 
         <div class="info-card panel-section">
-          <p class="info-title">当前来源</p>
+          <div class="info-card-head">
+            <p class="info-title">当前来源</p>
+            <span class="info-chip">Live</span>
+          </div>
           <p id="source-text" class="status-text">远程文件 ${DEFAULT_SPLAT_URL}</p>
           <p id="status-text" class="progress-text">正在准备 Viewer…</p>
           <p id="progress-text" class="progress-text">等待加载</p>
