@@ -1,129 +1,161 @@
 # spark-3dgs-viewer
 
-一个简单的网页 Viewer，用 Spark 2.0 preview 作为引擎来查看 3D Gaussian Splatting 场景。
+中文 | [English](#english)
 
-## 这个项目能做什么
+一个基于 Spark 2.0 preview 的 3D Gaussian Splatting 网页 Viewer。
 
-- 默认先显示一个全屏主页，引导你拖拽 3DGS 文件进入
-- 把本地 splat 文件拖到页面里直接打开
-- 也可以点击按钮选择本地文件
-- 也支持输入一个 splat 文件地址，直接在浏览器里打开远程场景
-- 场景加载后显示悬浮侧边栏，并且可以折叠收起
-- 支持切换自动 LoD
-- 支持切换流式加载
-- 支持切换高精度坐标模式
-- 远程地址模式会把当前配置写进地址栏，方便直接分享同一个 Viewer 链接
+主要特性：
+- 默认显示极简全屏主页
+- 支持拖拽或选择本地 3DGS 文件
+- 支持远程场景 URL 加载与示例快捷入口
+- 支持自动 LoD、流式加载、高精度坐标切换
+- 加载后显示可折叠悬浮侧边栏
+- 已配置 GitHub Pages 自动部署
 
-## 技术架构
+## 在线地址
 
-- Vite：负责本地开发和打包
-- THREE.js：负责基础相机、场景和渲染循环
-- Spark 2.0 preview：负责 3DGS 的加载和显示
-- 原生 JavaScript + CSS：负责界面和交互
+- GitHub Pages: https://theocuc.github.io/spark-3dgs-viewer/
+
+## 技术栈
+
+- Vite
+- Three.js
+- Spark 2.0 preview
+- 原生 JavaScript + CSS
 
 ## 本地运行
 
-先进入项目目录：
-
 ```bash
 cd ~/Code/spark-3dgs-viewer
-```
-
-安装依赖：
-
-```bash
 npm install
-```
-
-启动本地开发：
-
-```bash
 npm run dev -- --host 0.0.0.0
 ```
 
-打包：
+## 打包
 
 ```bash
 npm run build
 ```
 
-## 部署方法和命令
-
-这个项目当前是纯前端静态站点。
-
-先打包：
-
-```bash
-npm run build
-```
-
-打包结果会在 `dist/` 目录里，可以直接部署到任何静态文件服务。
-
-### GitHub Pages
-
-这个仓库已经补好了 GitHub Pages 的自动发布配置：
-
-- workflow 文件：`.github/workflows/deploy-pages.yml`
-- Vite 会通过 `VITE_BASE_PATH` 自动切换 `base`
-- 对当前仓库 `TheoCUC/spark-3dgs-viewer`，GitHub Pages 构建时会使用：
-  - `/spark-3dgs-viewer/`
-
-首次启用时，在 GitHub 仓库里确认：
-
-- Settings → Pages
-- Build and deployment → Source
-- 选择 `GitHub Actions`
-
-之后只要 push 到 `main`，GitHub Actions 就会自动：
-
-1. 安装依赖
-2. 跑测试
-3. 打包站点
-4. 发布到 GitHub Pages
-
-预期访问地址：
-
-```text
-https://theocuc.github.io/spark-3dgs-viewer/
-```
-
-## 测试方法和常用命令
-
-运行测试：
+## 测试
 
 ```bash
 npm test
 ```
 
-运行打包检查：
+## GitHub Pages 部署
+
+这个仓库已经包含 GitHub Pages 自动部署配置：
+
+- workflow: `.github/workflows/deploy-pages.yml`
+- Vite 会通过 `VITE_BASE_PATH` 自动设置 `base`
+- 当前仓库 `TheoCUC/spark-3dgs-viewer` 的 Pages 路径为：`/spark-3dgs-viewer/`
+
+如果首次启用，请在 GitHub 仓库中确认：
+- Settings → Pages
+- Build and deployment → Source
+- 选择 `GitHub Actions`
+
+之后每次 push 到 `main`，Actions 会自动：
+1. 安装依赖
+2. 运行测试
+3. 构建站点
+4. 发布到 GitHub Pages
+
+## 当前已实现
+
+- Spark 2.0 preview 接入
+- 极简 landing 页面
+- 本地文件拖拽/选择加载
+- 远程 URL 加载
+- 示例场景入口
+- 可折叠悬浮侧边栏
+- 状态显示与基础交互
+- GitHub Pages 自动发布
+
+## 参考
+
+- Spark 官方文档：Getting Started / New Features in 2.0 / Level-of-Detail / Controls
+- Spark 官方示例：`examples/viewer/index.html`
+- Spark 仓库：`sparkjsdev/spark` 的 `v2.0.0-preview`
+
+---
+
+## English
+
+A web-based 3D Gaussian Splatting viewer powered by Spark 2.0 preview.
+
+Key features:
+- Minimal full-screen landing page by default
+- Drag-and-drop or file picker for local 3DGS assets
+- Remote scene loading via URL and built-in sample shortcut
+- Toggles for auto LoD, paged loading, and high-precision coordinates
+- Floating collapsible sidebar after scene load
+- GitHub Pages auto deployment is already configured
+
+## Live Demo
+
+- GitHub Pages: https://theocuc.github.io/spark-3dgs-viewer/
+
+## Tech Stack
+
+- Vite
+- Three.js
+- Spark 2.0 preview
+- Vanilla JavaScript + CSS
+
+## Run Locally
+
+```bash
+cd ~/Code/spark-3dgs-viewer
+npm install
+npm run dev -- --host 0.0.0.0
+```
+
+## Build
 
 ```bash
 npm run build
 ```
 
-## 搜索记录
+## Test
 
-- skills.sh：这次没有额外依赖第三方方案，直接按 Spark 官方文档做最小可运行实现。
-- Spark 官方文档：重点参考了 Getting Started、New Features in 2.0、Spark Level-of-Detail、Controls。
-- Spark 示例：参考了官方 `examples/viewer/index.html` 的拖拽和本地文件入口。
-- Liquid Glass 参考：查了 Apple 风格相关资料，并参考了 Liquid Glass Studio、liquid-glass-js、以及 kube.io 的原理文章。
-- GitHub：参考了 `sparkjsdev/spark` 的 `v2.0.0-preview` 分支，确认当前预览版仍在持续维护。
+```bash
+npm test
+```
 
-## 已完成功能
+## GitHub Pages Deployment
 
-- 初始 npm 项目和前端开发环境
-- Spark 2.0 preview 接入
-- 3DGS Viewer 页面布局
-- 默认全屏拖拽主页
-- splat 地址输入和示例加载按钮
-- 本地文件拖拽加载
-- 本地文件选择按钮
-- 自动 LoD、流式加载、高精度坐标开关
-- 悬浮 liquid glass 风格侧边栏
-- 侧边栏折叠收起
-- 基本相机移动和状态提示
-- 配置、来源和外壳状态测试
+This repository already includes GitHub Pages automation:
 
-## 待办事项
+- workflow: `.github/workflows/deploy-pages.yml`
+- Vite switches `base` automatically through `VITE_BASE_PATH`
+- For `TheoCUC/spark-3dgs-viewer`, the Pages base path is `/spark-3dgs-viewer/`
 
-- 暂无强制待办
+If this is the first time enabling Pages, make sure the repository setting is:
+- Settings → Pages
+- Build and deployment → Source
+- Select `GitHub Actions`
+
+After that, every push to `main` will automatically:
+1. install dependencies
+2. run tests
+3. build the site
+4. deploy to GitHub Pages
+
+## Implemented So Far
+
+- Spark 2.0 preview integration
+- Minimal landing page
+- Local file drag-and-drop / picker loading
+- Remote URL loading
+- Sample scene shortcut
+- Floating collapsible sidebar
+- Status display and core interactions
+- GitHub Pages auto publishing
+
+## References
+
+- Spark docs: Getting Started / New Features in 2.0 / Level-of-Detail / Controls
+- Spark example viewer: `examples/viewer/index.html`
+- Spark repo: `sparkjsdev/spark` on `v2.0.0-preview`
