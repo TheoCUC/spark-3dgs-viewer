@@ -1,17 +1,20 @@
 // 这个文件负责封装 Spark + THREE 的初始化、渲染循环和场景加载流程。
 
 import * as THREE from 'three'
-import { SparkControls, SplatMesh } from '@sparkjsdev/spark'
+import { SparkControls, SparkRenderer, SplatMesh } from '@sparkjsdev/spark'
 
 // 创建一个可重复加载 splat 场景的 Viewer 实例。
 export function createSparkViewer({ canvas, onStatusChange, onProgressChange }) {
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: false })
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   renderer.setClearColor(0x050816, 1)
 
   const scene = new THREE.Scene()
   const camera = new THREE.PerspectiveCamera(60, 1, 0.01, 2000)
-  camera.position.set(0, 0, 3)
+  camera.position.set(0, 0, 1)
+
+  const spark = new SparkRenderer({ renderer })
+  scene.add(spark)
 
   const controls = new SparkControls({ canvas })
   const clock = new THREE.Clock()
@@ -67,9 +70,12 @@ export function createSparkViewer({ canvas, onStatusChange, onProgressChange }) 
           return
         }
 
+        loadedMesh.quaternion.set(1, 0, 0, 0)
         focusCamera(camera, loadedMesh)
       },
     })
+
+    mesh.quaternion.set(1, 0, 0, 0)
 
     activeMesh = mesh
     scene.add(mesh)
@@ -132,7 +138,7 @@ export function createSparkViewer({ canvas, onStatusChange, onProgressChange }) 
 async function createMeshOptions({ source }) {
   if (source.kind === 'local-file') {
     return {
-      fileBytes: await source.file.arrayBuffer(),
+      fileBytes: new Uint8Array(await source.file.arrayBuffer()),
       fileName: source.fileName,
     }
   }
@@ -171,7 +177,7 @@ function focusCamera(camera, mesh) {
   const box = mesh.getBoundingBox()
 
   if (box.isEmpty()) {
-    camera.position.set(0, 0, 3)
+    camera.position.set(0, 0, 1)
     camera.lookAt(0, 0, 0)
     return
   }
