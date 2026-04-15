@@ -56,83 +56,85 @@ app.innerHTML = `
     </main>
 
     <aside class="panel-shell" id="panel-shell">
-      <button type="button" id="sidebar-toggle" class="sidebar-toggle" aria-label="切换侧边栏">
-        <span class="sidebar-toggle-icon">☰</span>
-      </button>
-
       <aside class="panel" id="sidebar-panel">
         <div class="panel-glow"></div>
 
-        <div class="panel-section panel-header">
-          <div class="panel-badge-row">
-            <div class="brand-badge panel-brand-badge">
-              <span class="brand-badge-dot"></span>
-              Spark 2.0 Preview
+        <button type="button" id="sidebar-toggle" class="sidebar-toggle" aria-label="切换侧边栏">
+          <span class="sidebar-toggle-icon">←</span>
+        </button>
+
+        <div class="panel-content" id="panel-content">
+          <div class="panel-section panel-header">
+            <div class="panel-badge-row">
+              <div class="brand-badge panel-brand-badge">
+                <span class="brand-badge-dot"></span>
+                Spark 2.0 Preview
+              </div>
+              <div class="status-chip">Viewer Ready</div>
             </div>
-            <div class="status-chip">Viewer Ready</div>
+            <h2>3DGS Viewer</h2>
+            <p class="description">场景加载后显示这个侧边栏。它更像一个轻量工具抽屉，需要时展开，不需要时收起来。</p>
           </div>
-          <h2>3DGS Viewer</h2>
-          <p class="description">场景加载后显示这个侧边栏。它更像一个轻量工具抽屉，需要时展开，不需要时收起来。</p>
-        </div>
 
-        <form id="viewer-form" class="viewer-form">
-          <label class="field">
-            <span>文件地址</span>
-            <input
-              id="splat-url"
-              name="splatUrl"
-              type="url"
-              placeholder="https://example.com/scene.spz"
-              autocomplete="off"
-            />
-          </label>
-
-          <div class="toggle-group">
-            <label class="toggle">
-              <input id="lod" name="lod" type="checkbox" />
-              <span>自动 LoD</span>
+          <form id="viewer-form" class="viewer-form">
+            <label class="field">
+              <span>文件地址</span>
+              <input
+                id="splat-url"
+                name="splatUrl"
+                type="url"
+                placeholder="https://example.com/scene.spz"
+                autocomplete="off"
+              />
             </label>
-            <label class="toggle">
-              <input id="paged" name="paged" type="checkbox" />
-              <span>流式加载</span>
-            </label>
-            <label class="toggle">
-              <input id="ext-splats" name="extSplats" type="checkbox" />
-              <span>高精度坐标</span>
-            </label>
+
+            <div class="toggle-group">
+              <label class="toggle">
+                <input id="lod" name="lod" type="checkbox" />
+                <span>自动 LoD</span>
+              </label>
+              <label class="toggle">
+                <input id="paged" name="paged" type="checkbox" />
+                <span>流式加载</span>
+              </label>
+              <label class="toggle">
+                <input id="ext-splats" name="extSplats" type="checkbox" />
+                <span>高精度坐标</span>
+              </label>
+            </div>
+
+            <div class="drop-card" id="drop-card">
+              <p class="drop-title">拖拽本地文件到这里</p>
+              <p class="drop-subtitle">支持 .ply / .spz / .splat / .ksplat / .zip / .rad / .sog</p>
+              <button type="button" id="pick-file" class="secondary wide-button">选择本地文件</button>
+            </div>
+
+            <div class="actions">
+              <button type="submit">加载远程场景</button>
+              <button type="button" id="load-sample" class="secondary">载入示例</button>
+            </div>
+          </form>
+
+          <div class="info-card panel-section">
+            <div class="info-card-head">
+              <p class="info-title">当前来源</p>
+              <span class="info-chip">Live</span>
+            </div>
+            <p id="source-text" class="status-text">远程文件 ${DEFAULT_SPLAT_URL}</p>
+            <p id="status-text" class="progress-text">正在准备 Viewer…</p>
+            <p id="progress-text" class="progress-text">等待加载</p>
           </div>
 
-          <div class="drop-card" id="drop-card">
-            <p class="drop-title">拖拽本地文件到这里</p>
-            <p class="drop-subtitle">支持 .ply / .spz / .splat / .ksplat / .zip / .rad / .sog</p>
-            <button type="button" id="pick-file" class="secondary wide-button">选择本地文件</button>
+          <div class="info-card panel-section">
+            <p class="info-title">操作方式</p>
+            <ul class="tips">
+              <li>拖拽文件到页面：直接打开本地场景</li>
+              <li>鼠标拖动：旋转视角</li>
+              <li>滚轮：前后移动</li>
+              <li>W / A / S / D：平移</li>
+              <li>Shift：加速移动</li>
+            </ul>
           </div>
-
-          <div class="actions">
-            <button type="submit">加载远程场景</button>
-            <button type="button" id="load-sample" class="secondary">载入示例</button>
-          </div>
-        </form>
-
-        <div class="info-card panel-section">
-          <div class="info-card-head">
-            <p class="info-title">当前来源</p>
-            <span class="info-chip">Live</span>
-          </div>
-          <p id="source-text" class="status-text">远程文件 ${DEFAULT_SPLAT_URL}</p>
-          <p id="status-text" class="progress-text">正在准备 Viewer…</p>
-          <p id="progress-text" class="progress-text">等待加载</p>
-        </div>
-
-        <div class="info-card panel-section">
-          <p class="info-title">操作方式</p>
-          <ul class="tips">
-            <li>拖拽文件到页面：直接打开本地场景</li>
-            <li>鼠标拖动：旋转视角</li>
-            <li>滚轮：前后移动</li>
-            <li>W / A / S / D：平移</li>
-            <li>Shift：加速移动</li>
-          </ul>
         </div>
       </aside>
 
@@ -149,6 +151,7 @@ const landingCard = document.querySelector('#landing-card')
 const panelShell = document.querySelector('#panel-shell')
 const sidebarPanel = document.querySelector('#sidebar-panel')
 const sidebarToggle = document.querySelector('#sidebar-toggle')
+const sidebarToggleIcon = document.querySelector('.sidebar-toggle-icon')
 const dropCard = document.querySelector('#drop-card')
 const dropOverlay = document.querySelector('#drop-overlay')
 const fileInput = document.querySelector('#file-input')
@@ -173,6 +176,7 @@ if (
   !(panelShell instanceof HTMLElement) ||
   !(sidebarPanel instanceof HTMLElement) ||
   !(sidebarToggle instanceof HTMLButtonElement) ||
+  !(sidebarToggleIcon instanceof HTMLElement) ||
   !(dropCard instanceof HTMLElement) ||
   !(dropOverlay instanceof HTMLElement) ||
   !(fileInput instanceof HTMLInputElement) ||
@@ -298,6 +302,7 @@ function applyShellState(state) {
   sidebarPanel.setAttribute('aria-hidden', String(state.sidebarCollapsed))
   sidebarToggle.setAttribute('aria-expanded', String(!state.sidebarCollapsed))
   sidebarToggle.title = state.sidebarCollapsed ? '展开侧边栏' : '收起侧边栏'
+  sidebarToggleIcon.textContent = '←'
 }
 
 // 加载远程或本地场景，并同步页面上的来源说明。
