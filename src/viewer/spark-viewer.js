@@ -31,7 +31,7 @@ export function createSparkViewer({ canvas, onStatusChange, onProgressChange }) 
   window.addEventListener('resize', resize)
 
   onStatusChange('Viewer 已就绪')
-  onProgressChange('请输入地址后开始加载')
+  onProgressChange('请输入地址或拖拽本地文件开始加载')
 
   return {
     load,
@@ -39,26 +39,27 @@ export function createSparkViewer({ canvas, onStatusChange, onProgressChange }) 
   }
 
   // 加载一个新的 splat 场景，并替换掉当前显示内容。
-  async function load(options) {
+  async function load({ options, source }) {
     const currentVersion = ++loadVersion
     const startedAt = clock.getElapsedTime()
 
     onStatusChange('正在加载场景…')
-    onProgressChange('正在请求文件')
+    onProgressChange(source.kind === 'local-file' ? '正在读取本地文件' : '正在请求文件')
 
     clearActiveMesh()
 
+    const meshOptions = await createMeshOptions({ options, source, currentVersion, loadVersion })
     const mesh = new SplatMesh({
-      url: options.splatUrl,
+      ...meshOptions,
       lod: options.lod,
-      paged: options.paged,
+      paged: source.kind === 'local-file' ? false : options.paged,
       extSplats: options.extSplats,
       onProgress: (event) => {
         if (currentVersion !== loadVersion) {
           return
         }
 
-        const progressMessage = formatProgress(event)
+        const progressMessage = formatProgress(event, source.kind)
         onProgressChange(progressMessage)
       },
       onLoad: (loadedMesh) => {
@@ -127,19 +128,33 @@ export function createSparkViewer({ canvas, onStatusChange, onProgressChange }) 
   }
 }
 
+// 根据来源准备 Spark 需要的加载参数。
+async function createMeshOptions({ source }) {
+  if (source.kind === 'local-file') {
+    return {
+      fileBytes: await source.file.arrayBuffer(),
+      fileName: source.fileName,
+    }
+  }
+
+  return {
+    url: source.url,
+  }
+}
+
 // 根据加载进度生成更好懂的提示语。
-function formatProgress(event) {
+function formatProgress(event, sourceKind) {
   if (event.total) {
     const percent = ((event.loaded / event.total) * 100).toFixed(1)
-    return `下载中 ${percent}%`
+    return sourceKind === 'local-file' ? `读取中 ${percent}%` : `下载中 ${percent}%`
   }
 
   if (event.loaded) {
     const megaBytes = (event.loaded / (1024 * 1024)).toFixed(2)
-    return `已下载 ${megaBytes} MB`
+    return sourceKind === 'local-file' ? `已读取 ${megaBytes} MB` : `已下载 ${megaBytes} MB`
   }
 
-  return '正在下载文件'
+  return sourceKind === 'local-file' ? '正在读取本地文件' : '正在下载文件'
 }
 
 // 读取错误信息，避免直接显示难懂的对象结构。

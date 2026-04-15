@@ -5,10 +5,12 @@
 ## 这个项目能做什么
 
 - 输入一个 splat 文件地址，直接在浏览器里打开 3DGS 场景
+- 把本地 splat 文件拖到页面里直接打开
+- 也可以点击按钮选择本地文件
 - 支持切换自动 LoD
 - 支持切换流式加载
 - 支持切换高精度坐标模式
-- 会把当前配置写进地址栏，方便直接分享同一个 Viewer 链接
+- 远程地址模式会把当前配置写进地址栏，方便直接分享同一个 Viewer 链接
 
 ## 技术架构
 
@@ -73,6 +75,7 @@ npm run build
 
 - skills.sh：这次没有额外依赖第三方方案，直接按 Spark 官方文档做最小可运行实现。
 - Spark 官方文档：重点参考了 Getting Started、New Features in 2.0、Spark Level-of-Detail、Controls。
+- Spark 示例：参考了官方 `examples/viewer/index.html` 的拖拽和本地文件入口。
 - GitHub：参考了 `sparkjsdev/spark` 的 `v2.0.0-preview` 分支，确认当前预览版仍在持续维护。
 
 ## 已完成功能
@@ -81,9 +84,11 @@ npm run build
 - Spark 2.0 preview 接入
 - 3DGS Viewer 页面布局
 - splat 地址输入和示例加载按钮
+- 本地文件拖拽加载
+- 本地文件选择按钮
 - 自动 LoD、流式加载、高精度坐标开关
 - 基本相机移动和状态提示
-- 配置读取测试
+- 配置与来源说明测试
 
 ## 待办事项
 
