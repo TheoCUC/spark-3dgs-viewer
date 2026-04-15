@@ -23,14 +23,29 @@ if (!app) {
 
 app.innerHTML = `
   <div class="layout" id="layout">
-    <aside class="panel">
-      <div>
-        <p class="eyebrow">Spark 2.0 Preview</p>
-        <h1>3DGS Viewer</h1>
-        <p class="description">
-          支持远程地址，也支持把本地 splat 文件直接拖到页面里查看。
-        </p>
+    <div class="ambient ambient-a"></div>
+    <div class="ambient ambient-b"></div>
+    <div class="ambient ambient-c"></div>
+
+    <main class="viewport-wrap" id="viewport-wrap">
+      <canvas id="viewer-canvas"></canvas>
+      <div class="drop-overlay" id="drop-overlay">
+        <div class="drop-overlay-card">
+          <p>松开鼠标后立即加载本地文件</p>
+        </div>
       </div>
+    </main>
+
+    <aside class="panel-shell">
+      <aside class="panel">
+        <div class="panel-glow"></div>
+        <div>
+          <p class="eyebrow">Spark 2.0 Preview</p>
+          <h1>3DGS Viewer</h1>
+          <p class="description">
+            支持远程地址，也支持把本地 splat 文件直接拖到页面里查看。
+          </p>
+        </div>
 
       <form id="viewer-form" class="viewer-form">
         <label class="field">
@@ -89,16 +104,8 @@ app.innerHTML = `
           <li>Shift：加速移动</li>
         </ul>
       </div>
+      </aside>
     </aside>
-
-    <main class="viewport-wrap" id="viewport-wrap">
-      <canvas id="viewer-canvas"></canvas>
-      <div class="drop-overlay" id="drop-overlay">
-        <div class="drop-overlay-card">
-          <p>松开鼠标后立即加载本地文件</p>
-        </div>
-      </div>
-    </main>
   </div>
 `
 
