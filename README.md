@@ -59,6 +59,34 @@ npm run build
 
 打包结果会在 `dist/` 目录里，可以直接部署到任何静态文件服务。
 
+### GitHub Pages
+
+这个仓库已经补好了 GitHub Pages 的自动发布配置：
+
+- workflow 文件：`.github/workflows/deploy-pages.yml`
+- Vite 会通过 `VITE_BASE_PATH` 自动切换 `base`
+- 对当前仓库 `TheoCUC/spark-3dgs-viewer`，GitHub Pages 构建时会使用：
+  - `/spark-3dgs-viewer/`
+
+首次启用时，在 GitHub 仓库里确认：
+
+- Settings → Pages
+- Build and deployment → Source
+- 选择 `GitHub Actions`
+
+之后只要 push 到 `main`，GitHub Actions 就会自动：
+
+1. 安装依赖
+2. 跑测试
+3. 打包站点
+4. 发布到 GitHub Pages
+
+预期访问地址：
+
+```text
+https://theocuc.github.io/spark-3dgs-viewer/
+```
+
 ## 测试方法和常用命令
 
 运行测试：
