@@ -76,18 +76,38 @@ app.innerHTML = `
           </div>
 
           <form id="viewer-form" class="viewer-form">
-            <label class="field">
-              <span>文件地址</span>
-              <input
-                id="splat-url"
-                name="splatUrl"
-                type="url"
-                placeholder="https://example.com/scene.spz"
-                autocomplete="off"
-              />
-            </label>
+            <div class="drop-card local-source-card" id="drop-card">
+              <div class="source-card-head">
+                <p class="source-label">本地文件</p>
+              </div>
+              <p class="drop-title">拖拽本地文件到这里</p>
+              <p class="drop-subtitle">支持 .ply / .spz / .splat / .ksplat / .zip / .rad / .sog</p>
+              <button type="button" id="pick-file" class="secondary wide-button">选择本地文件</button>
+            </div>
 
-            <div class="toggle-group">
+            <div class="remote-scene-card">
+              <div class="source-card-head">
+                <p class="source-label">远程场景</p>
+                <button type="button" id="load-sample" class="secondary remote-sample-button">示例</button>
+              </div>
+
+              <label class="field remote-field">
+                <span>文件地址</span>
+                <input
+                  id="splat-url"
+                  name="splatUrl"
+                  type="url"
+                  placeholder="https://example.com/scene.spz"
+                  autocomplete="off"
+                />
+              </label>
+
+              <div class="actions remote-actions">
+                <button type="submit">加载远程场景</button>
+              </div>
+            </div>
+
+            <div class="toggle-group settings-group">
               <label class="toggle">
                 <input id="lod" name="lod" type="checkbox" />
                 <span>自动 LoD</span>
@@ -101,30 +121,9 @@ app.innerHTML = `
                 <span>高精度坐标</span>
               </label>
             </div>
-
-            <div class="drop-card" id="drop-card">
-              <p class="drop-title">拖拽本地文件到这里</p>
-              <p class="drop-subtitle">支持 .ply / .spz / .splat / .ksplat / .zip / .rad / .sog</p>
-              <button type="button" id="pick-file" class="secondary wide-button">选择本地文件</button>
-            </div>
-
-            <div class="actions">
-              <button type="submit">加载远程场景</button>
-              <button type="button" id="load-sample" class="secondary">载入示例</button>
-            </div>
           </form>
 
-          <div class="info-card panel-section">
-            <div class="info-card-head">
-              <p class="info-title">当前来源</p>
-              <span class="info-chip">Live</span>
-            </div>
-            <p id="source-text" class="status-text">远程文件 ${DEFAULT_SPLAT_URL}</p>
-            <p id="status-text" class="progress-text">正在准备 Viewer…</p>
-            <p id="progress-text" class="progress-text">等待加载</p>
-          </div>
-
-          <div class="info-card panel-section">
+          <div class="info-card panel-section help-card">
             <p class="info-title">操作方式</p>
             <ul class="tips">
               <li>拖拽文件到页面：直接打开本地场景</li>
@@ -133,6 +132,16 @@ app.innerHTML = `
               <li>W / A / S / D：平移</li>
               <li>Shift：加速移动</li>
             </ul>
+          </div>
+
+          <div class="info-card panel-section status-card">
+            <div class="info-card-head">
+              <p class="info-title">状态</p>
+              <span class="info-chip">Live</span>
+            </div>
+            <p id="source-text" class="status-text">远程文件 ${DEFAULT_SPLAT_URL}</p>
+            <p id="status-text" class="progress-text">正在准备 Viewer…</p>
+            <p id="progress-text" class="progress-text">等待加载</p>
           </div>
         </div>
       </aside>

@@ -760,6 +760,21 @@ ul {
   gap: 14px;
 }
 
+.source-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.source-label {
+  color: var(--text-dim);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
 .field {
   display: flex;
   flex-direction: column;
@@ -773,9 +788,40 @@ ul {
   letter-spacing: 0.2px;
 }
 
+.remote-scene-card {
+  padding: 14px 14px 16px;
+  border: 1px solid rgba(136, 177, 255, 0.08);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow: rgba(255, 255, 255, 0.03) 0 1px 0 0 inset;
+}
+
+.remote-field input {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.remote-actions {
+  margin-top: 12px;
+}
+
+.remote-actions button {
+  min-height: 40px;
+}
+
+.remote-sample-button {
+  flex: none;
+  min-width: 58px;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
 .toggle-group {
   display: grid;
   gap: 10px;
+}
+
+.settings-group {
+  margin-top: 4px;
 }
 
 .toggle {
@@ -800,6 +846,10 @@ ul {
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.03);
   box-shadow: rgba(255, 255, 255, 0.04) 0 1px 0 0 inset;
+}
+
+.local-source-card {
+  padding: 16px;
 }
 
 .drop-card {
@@ -830,6 +880,11 @@ ul {
 .actions button,
 .wide-button {
   flex: 1;
+}
+
+.remote-actions button,
+.remote-sample-button {
+  border-radius: 14px;
 }
 
 .wide-button {
