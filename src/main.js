@@ -73,7 +73,6 @@ app.innerHTML = `
               <div class="status-chip">Viewer Ready</div>
             </div>
             <h2>3DGS Viewer</h2>
-            <p class="description">场景加载后显示这个侧边栏。它更像一个轻量工具抽屉，需要时展开，不需要时收起来。</p>
           </div>
 
           <form id="viewer-form" class="viewer-form">
