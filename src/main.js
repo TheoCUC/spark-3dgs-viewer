@@ -44,6 +44,7 @@ app.innerHTML = `
               <a href="https://sparkjs.dev/2.0.0-preview/docs/new-features-2.0/" target="_blank" rel="noreferrer">spark</a>
             </p>
             <button type="button" id="landing-pick-file" class="landing-minimal-drop">拖拽文件加载 · Drag and drop to load</button>
+            <button type="button" id="landing-sample" class="landing-minimal-sample">打开示例</button>
           </div>
         </div>
       </section>
@@ -165,6 +166,7 @@ const dropOverlay = document.querySelector('#drop-overlay')
 const fileInput = document.querySelector('#file-input')
 const pickFileButton = document.querySelector('#pick-file')
 const landingPickFileButton = document.querySelector('#landing-pick-file')
+const landingSampleButton = document.querySelector('#landing-sample')
 const urlInput = document.querySelector('#splat-url')
 const lodInput = document.querySelector('#lod')
 const pagedInput = document.querySelector('#paged')
@@ -190,6 +192,7 @@ if (
   !(fileInput instanceof HTMLInputElement) ||
   !(pickFileButton instanceof HTMLButtonElement) ||
   !(landingPickFileButton instanceof HTMLButtonElement) ||
+  !(landingSampleButton instanceof HTMLButtonElement) ||
   !(urlInput instanceof HTMLInputElement) ||
   !(lodInput instanceof HTMLInputElement) ||
   !(pagedInput instanceof HTMLInputElement) ||
@@ -236,6 +239,13 @@ form.addEventListener('submit', async (event) => {
 })
 
 sampleButton.addEventListener('click', async () => {
+  currentLocalFile = null
+  const options = createSampleOptions()
+  applyFormOptions(options)
+  await loadScene(options)
+})
+
+landingSampleButton.addEventListener('click', async () => {
   currentLocalFile = null
   const options = createSampleOptions()
   applyFormOptions(options)

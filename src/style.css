@@ -235,6 +235,27 @@ ul {
   border-bottom-color: rgba(255, 255, 255, 0.5);
 }
 
+.landing-minimal-sample {
+  margin-top: -6px;
+  padding: 0;
+  color: var(--text-dim);
+  background: transparent;
+  border: none;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.18px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  opacity: 0.86;
+  transition: color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+}
+
+.landing-minimal-sample:hover {
+  color: var(--text-soft);
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
 .landing-minimal-drop {
   min-width: min(500px, 100%);
   padding: 20px 28px;
